@@ -3,12 +3,14 @@ class DirectorsController < ApplicationController
 
   def index
     directors = Director.all
-    render json: directors
+    render json: directors, include: ['movies', 'movie.reviews']
   end
 
   def show
     director = Director.find(params[:id])
-    render json: director
+
+    # AMS renders info for the director, and include information for the movies associated with the particular director, and the reviews associated with those movies
+    render json: director, include: ['movies', 'movies.reviews']
   end
 
   private
